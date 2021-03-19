@@ -30,14 +30,11 @@ document.addEventListener("DOMContentLoaded", function () {
             getRaceResult = false;
             let stopTime = getTimestamp();
             let raceTime = parseFloat((stopTime - startTime).toFixed(2));
-            console.log(startTime, stopTime, raceTime);
             const wrapperText = characterAnnotationWrapper.innerText;
 
             if (wrapperText === "Yay!") {
-                console.log("Победа!");
                 saveResults(1, window.terrain.rockSize, window.terrain.rockPosition, characterJumpDistance[0], characterJumpDistance[characterJumpDistance.length - 1], raceTime);
             } else if (wrapperText === "Ouch!") {
-                console.log("Поражение!");
                 saveResults(0, window.terrain.rockSize, window.terrain.rockPosition, characterJumpDistance[0], characterJumpDistance[characterJumpDistance.length - 1], raceTime);
             }
 
@@ -67,12 +64,6 @@ function saveResults(result, rockSize, rockPosition, jumpDistanceStart, jumpDist
     xhr.open("POST", '/save_results.php', true);
 
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-            console.log(xhr);
-        }
-    }
 
     xhr.send(serialize(postData));
 }
